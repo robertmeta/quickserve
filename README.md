@@ -4,6 +4,7 @@ This is a very small little app to statically serve directories over
 HTTPS without any setup.  It will generate self-signed https cert and 
 key on run, by default it will serve the current directory.
 
+
 ## Why?
 
 Because serving directories over HTTP(s) is often the least painful way 
@@ -20,19 +21,20 @@ I got sick of writing little "serve.go" files that just had
 
 inside them that I would run with "go run serve.go"
 
+
 ## Binaries
 
 If you don't want to install Go in order to build this yourself, feel free to grab
-your platform specific binary from the binaries folder, or just "save as" one of the below links
+your platform specific binary from the releases section
 
-- Windows: https://github.com/robertmeta/quickserve/blob/master/binaries/windows/quickserve.exe?raw=true
-- Linux: https://github.com/robertmeta/quickserve/blob/master/binaries/linux/quickserve?raw=true 
-- OS-X: https://github.com/robertmeta/quickserve/blob/master/binaries/osx/quickserve?raw=true
+- https://github.com/robertmeta/quickserve/releases
+
 
 ## Examples
 
 - quickserve :: will serve the current directory
 - quickserve -d /some/directory/to/serve -d other/local/directory :: will serve those two directories
+
 
 ## Usage of quickserve
 
@@ -43,8 +45,8 @@ your platform specific binary from the binaries folder, or just "save as" one of
 - -n=false: Force generation of new certs
 - -po=443: The port to serve https on
 
+
 ## TODO
 
-- Remove binaries, fresh directory, use github releases
 - Tests
 - Add BasicAuth
