@@ -4,6 +4,7 @@ import (
 	"flag"
 	"fmt"
 	"log"
+	"net"
 	"net/http"
 	"path/filepath"
 	"runtime"
@@ -41,7 +42,14 @@ func main() {
 		http.Handle("/"+s, http.StripPrefix("/"+s, http.FileServer(http.Dir(l))))
 	})
 	if strings.HasPrefix(completeAddress, ":") {
-		fmt.Println("Starting server at https://(all)" + completeAddress)
+		addrs, err := net.InterfaceAddrs()
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		for _, a := range addrs {
+			fmt.Println("Starting server at https://" + a.String() + completeAddress)
+		}
 	} else {
 		fmt.Println("Starting server at https://" + completeAddress)
 	}

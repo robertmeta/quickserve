@@ -4,3 +4,9 @@
 !_TAG_PROGRAM_NAME	Exuberant Ctags	//
 !_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
 !_TAG_PROGRAM_VERSION	5.8	//
+Binaries	C:\Users\Robert\Go\src\github.com\robertmeta\quickserve\README.md	/^## Binaries$/;"	i
+Examples	C:\Users\Robert\Go\src\github.com\robertmeta\quickserve\README.md	/^## Examples$/;"	i
+Quick Serve	C:\Users\Robert\Go\src\github.com\robertmeta\quickserve\README.md	/^# Quick Serve$/;"	h
+TODO	C:\Users\Robert\Go\src\github.com\robertmeta\quickserve\README.md	/^## TODO$/;"	i
+Usage of quickserve	C:\Users\Robert\Go\src\github.com\robertmeta\quickserve\README.md	/^## Usage of quickserve$/;"	i
+Why?	C:\Users\Robert\Go\src\github.com\robertmeta\quickserve\README.md	/^## Why?$/;"	i
