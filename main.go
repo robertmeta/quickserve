@@ -1,8 +1,10 @@
 package main
 
 import (
+	"compress/gzip"
 	"flag"
 	"fmt"
+	"io"
 	"log"
 	"net"
 	"net/http"
@@ -24,6 +26,29 @@ var (
 	osSep    = string(filepath.Separator)
 )
 
+type gzipResponseWriter struct {
+	io.Writer
+	http.ResponseWriter
+}
+
+func (w gzipResponseWriter) Write(b []byte) (int, error) {
+	return w.Writer.Write(b)
+}
+
+func makeGzipHandler(fn http.HandlerFunc) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		if !strings.Contains(r.Header.Get("Accept-Encoding"), "gzip") {
+			fn(w, r)
+			return
+		}
+		w.Header().Set("Content-Encoding", "gzip")
+		gz := gzip.NewWriter(w)
+		defer gz.Close()
+		gzr := gzipResponseWriter{Writer: gz, ResponseWriter: w}
+		fn(gzr, r)
+	}
+}
+
 func init() {
 	runtime.GOMAXPROCS(runtime.NumCPU() * 2) // Enable multithreaded.
 	flag.Var(&dirs, "d", "List of directories to serve (use multiple -d flags)")
@@ -37,7 +62,7 @@ func init() {
 func main() {
 	completeAddress := parseFlags()
 
-	http.HandleFunc("/", serveIndex)
+	http.HandleFunc("/", makeGzipHandler(serveIndex))
 	doPerDir(func(l, s string) {
 		http.Handle("/"+s, http.StripPrefix("/"+s, http.FileServer(http.Dir(l))))
 	})
